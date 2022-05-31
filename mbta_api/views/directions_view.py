@@ -15,7 +15,10 @@ class DirectionsView():
         path_string = ''
         for route in path:
             path_string += f' ---> {route.long_name}'
-        print(path_string.removeprefix(' ---> '))
+        if not path:
+            print('No viable path found.')
+        else:
+            print(path_string.removeprefix(' ---> '))
         
 
     def __findRouteBetweenStops(self, beg_stop, end_stop):
@@ -38,7 +41,7 @@ class DirectionsView():
                 if path_build_info:
                     path = self.__buildPath(path_build_info[0], path_build_info[1], path_build_info[2])
                     path.reverse()
-                    if len(min_transfer_path) == 0 or len(path):
+                    if len(min_transfer_path) == 0 or len(path) < len(min_transfer_path):
                         min_transfer_path = path
         return min_transfer_path
 

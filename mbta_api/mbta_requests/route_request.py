@@ -59,7 +59,8 @@ class RouteRequest():
             pass
 
         for json_route in json_routes:
-            routes[json_route['id']] = Route(json_route)
+            if json_route['id'] not in self.route_options.filter_exclude_route:
+                routes[json_route['id']] = Route(json_route)
 
         return (routes, is_more)
     
